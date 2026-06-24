@@ -1,0 +1,1346 @@
+{
+"items": [
+{
+"id": "antidote",
+"name_uk": "Протиотрута",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:50",
+"craft_exp": 3,
+"output_qty": 3,
+"shop_section": "ANTIDOTE",
+"sell_price": 5.0,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "bandage",
+"name_uk": "Бинт",
+"category": "bandage",
+"type": "product",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:15",
+"craft_exp": 1,
+"output_qty": 5,
+"shop_section": "BANDAGES",
+"sell_price": 0.5,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "sterile_bandage",
+"name_uk": "Стерильний бинт",
+"category": "bandage",
+"type": "product",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 5,
+"shop_section": "BANDAGES",
+"sell_price": 2.0,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "analgesic_infusion",
+"name_uk": "Знеболювальні настої",
+"category": "misc",
+"type": "shop",
+"buy_price": null,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": "MISCELLANEOUS",
+"sell_price": 11.0,
+"components_complete": false,
+"notes": "No crafting recipe captured"
+},
+{
+"id": "bandage_belt",
+"name_uk": "Бандажний пояс",
+"category": "misc",
+"type": "shop",
+"buy_price": null,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": "MISCELLANEOUS",
+"sell_price": 3.5,
+"components_complete": false,
+"notes": "No crafting recipe captured"
+},
+{
+"id": "spray_syringe",
+"name_uk": "Розпилюючий шприц",
+"category": "misc",
+"type": "shop",
+"buy_price": null,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": "MISCELLANEOUS",
+"sell_price": 25.0,
+"components_complete": false,
+"notes": "No crafting recipe captured"
+},
+{
+"id": "strengthening_mixture",
+"name_uk": "Зміцнююча мікстура",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:45",
+"craft_exp": 3,
+"output_qty": 2,
+"shop_section": "MIXTURE",
+"sell_price": 7.5,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "healing_drink",
+"name_uk": "Загоюючий напій",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:45",
+"craft_exp": 3,
+"output_qty": 2,
+"shop_section": "MIXTURE",
+"sell_price": 15.5,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "restoring_emulsion",
+"name_uk": "Відновлююча емульсія",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:45",
+"craft_exp": 3,
+"output_qty": 2,
+"shop_section": "MIXTURE",
+"sell_price": 8.0,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "reparative_suspension",
+"name_uk": "Репаративна суспензія",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:45",
+"craft_exp": 3,
+"output_qty": 2,
+"shop_section": "MIXTURE",
+"sell_price": 8.0,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "stabilizing_solution",
+"name_uk": "Стабілізаційний розчин",
+"category": "mixture",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:45",
+"craft_exp": 3,
+"output_qty": 2,
+"shop_section": "MIXTURE",
+"sell_price": 8.0,
+"components_complete": true,
+"notes": "Shop page spells it \"Стабілізуючий розчин\""
+},
+{
+"id": "tonic_herbs",
+"name_uk": "Тонізуючий збір лікарських трав",
+"category": "herbs",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 1,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "healing_herbs",
+"name_uk": "Цілющий збір лікарських трав",
+"category": "herbs",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 1,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "calming_herbs",
+"name_uk": "Заспокійливий збір лікарських трав",
+"category": "herbs",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 1,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "restoring_herbs",
+"name_uk": "Відновлюючий збір лікарських трав",
+"category": "herbs",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 1,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "alcohol_flask",
+"name_uk": "Флакон спирту",
+"category": "base",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:30",
+"craft_exp": 1,
+"output_qty": 100,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "warming_ointment",
+"name_uk": "Зігріваюча мазь",
+"category": "ointment",
+"type": "product",
+"buy_price": null,
+"craft_level": 1,
+"craft_time": "00:20",
+"craft_exp": 1,
+"output_qty": 3,
+"shop_section": "ointment",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "liver_extract",
+"name_uk": "Витяжка з печінки",
+"category": "extract",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "01:00",
+"craft_exp": 2,
+"output_qty": 5,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "venom_extract",
+"name_uk": "Витяжка з отрути",
+"category": "extract",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "01:00",
+"craft_exp": 2,
+"output_qty": 5,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "poppy_concentrate",
+"name_uk": "Концентрат макової рідини",
+"category": "extract",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "01:20",
+"craft_exp": 3,
+"output_qty": 3,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "coca_extract",
+"name_uk": "Екстракт листя коки",
+"category": "extract",
+"type": "intermediate",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "01:20",
+"craft_exp": 3,
+"output_qty": 3,
+"shop_section": null,
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "oak_bark_decoction",
+"name_uk": "Відвар кори дуба",
+"category": "tonic",
+"type": "product",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "00:30",
+"craft_exp": 2,
+"output_qty": 3,
+"shop_section": "tonic",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "invigorating_tonic",
+"name_uk": "Бадьорящий тонік",
+"category": "tonic",
+"type": "product",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "00:30",
+"craft_exp": 2,
+"output_qty": 3,
+"shop_section": "tonic",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "healing_infusion",
+"name_uk": "Лікувальний настій",
+"category": "tonic",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:40",
+"craft_exp": 3,
+"output_qty": 4,
+"shop_section": "tonic",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "ammonia_spirit",
+"name_uk": "Нашатирний спирт",
+"category": "tonic",
+"type": "product",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "00:40",
+"craft_exp": 2,
+"output_qty": 4,
+"shop_section": "tonic",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "bee_medicine",
+"name_uk": "Ліки для бджіл",
+"category": "animal",
+"type": "product",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "00:30",
+"craft_exp": 2,
+"output_qty": 5,
+"shop_section": "animal",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "dog_medicine",
+"name_uk": "Ліки для собаки",
+"category": "animal",
+"type": "product",
+"buy_price": null,
+"craft_level": 2,
+"craft_time": "00:30",
+"craft_exp": 2,
+"output_qty": 3,
+"shop_section": "animal",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "horse_medicine",
+"name_uk": "Ліки для коня",
+"category": "animal",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "00:40",
+"craft_exp": 3,
+"output_qty": 1,
+"shop_section": "animal",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "coca_gum",
+"name_uk": "Кокаїнові жуйки",
+"category": "drug",
+"type": "product",
+"buy_price": null,
+"craft_level": 3,
+"craft_time": "01:00",
+"craft_exp": 3,
+"output_qty": 5,
+"shop_section": "drug",
+"sell_price": null,
+"components_complete": true,
+"notes": null
+},
+{
+"id": "laudanum",
+"name_uk": "Лауданум",
+"category": "drug",
+"type": "product",
+"buy_price": null,
+"craft_level": 4,
+"craft_time": "00:40",
+"craft_exp": 5,
+"output_qty": 2,
+"shop_section": "drug",
+"sell_price": null,
+"components_complete": false,
+"notes": "Components not captured in screenshots"
+},
+{
+"id": "resuscitation_syringe",
+"name_uk": "Реанімаційний шприц",
+"category": "medical",
+"type": "product",
+"buy_price": null,
+"craft_level": 4,
+"craft_time": "02:00",
+"craft_exp": 5,
+"output_qty": 2,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": "Components not captured in screenshots"
+},
+{
+"id": "alaskan_ginseng",
+"name_uk": "Аляскинський женьшень",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.3,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "bitter_weed",
+"name_uk": "Гіркий бур'ян",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "desert_sage",
+"name_uk": "Шавлія пустельна",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "wild_feverfew",
+"name_uk": "Дикий білоцвіт",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.4,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "wintergreen",
+"name_uk": "Гаультерія",
+"category": "raw",
+"type": "raw",
+"buy_price": 1.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "american_ginseng",
+"name_uk": "Американський женьшень",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.8,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "bloodflower",
+"name_uk": "Кровоцвіт",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "burdock_root",
+"name_uk": "Корінь лопуха",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "achillea",
+"name_uk": "Ахілея",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "yarrow",
+"name_uk": "Деревій",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.3,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "milkweed",
+"name_uk": "Молочай",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "sensitive_mimosa",
+"name_uk": "Мімоза сором'язлива",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "empty_flask",
+"name_uk": "Порожній флакон",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "spirit",
+"name_uk": "Спирт",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "wool",
+"name_uk": "Вовна",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "fiber",
+"name_uk": "Волокна",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "honey",
+"name_uk": "Мед",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "chili_pepper",
+"name_uk": "Перець Чилі",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "rubber",
+"name_uk": "Каучук",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "pork_fat",
+"name_uk": "Свиняче сало",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "predator_liver",
+"name_uk": "Печінка хижого звіра",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.55,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "sulfur",
+"name_uk": "Сірка",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "snake_venom",
+"name_uk": "Зміїна отрута",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "steppe_poppy",
+"name_uk": "Степовий мак",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "coca_leaves",
+"name_uk": "Листя коки",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "cork_bark",
+"name_uk": "Коркова кора",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "tree_sap",
+"name_uk": "Деревний сік",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "coffee_beans",
+"name_uk": "Кавові зерна",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "resin",
+"name_uk": "Смола",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "rams_head",
+"name_uk": "Баран-голова",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": "Low-confidence OCR"
+},
+{
+"id": "sugar",
+"name_uk": "Цукор",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "empty_syringe",
+"name_uk": "Порожній шприц",
+"category": "raw",
+"type": "raw",
+"buy_price": 0.0,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": null
+},
+{
+"id": "wolfberry",
+"name_uk": "wolfberry",
+"category": "raw",
+"type": "raw",
+"buy_price": null,
+"craft_level": null,
+"craft_time": null,
+"craft_exp": null,
+"output_qty": null,
+"shop_section": null,
+"sell_price": null,
+"components_complete": false,
+"notes": "auto-created: referenced by a recipe but missing from items.csv"
+}
+],
+"recipes": [
+{
+"product_id": "tonic_herbs",
+"component_id": "alaskan_ginseng",
+"quantity": 3
+},
+{
+"product_id": "tonic_herbs",
+"component_id": "bitter_weed",
+"quantity": 3
+},
+{
+"product_id": "tonic_herbs",
+"component_id": "desert_sage",
+"quantity": 3
+},
+{
+"product_id": "healing_herbs",
+"component_id": "wild_feverfew",
+"quantity": 3
+},
+{
+"product_id": "healing_herbs",
+"component_id": "wintergreen",
+"quantity": 3
+},
+{
+"product_id": "healing_herbs",
+"component_id": "american_ginseng",
+"quantity": 3
+},
+{
+"product_id": "calming_herbs",
+"component_id": "bloodflower",
+"quantity": 3
+},
+{
+"product_id": "calming_herbs",
+"component_id": "burdock_root",
+"quantity": 3
+},
+{
+"product_id": "calming_herbs",
+"component_id": "yarrow",
+"quantity": 3
+},
+{
+"product_id": "restoring_herbs",
+"component_id": "wolfberry",
+"quantity": 3
+},
+{
+"product_id": "restoring_herbs",
+"component_id": "milkweed",
+"quantity": 3
+},
+{
+"product_id": "restoring_herbs",
+"component_id": "sensitive_mimosa",
+"quantity": 3
+},
+{
+"product_id": "alcohol_flask",
+"component_id": "empty_flask",
+"quantity": 100
+},
+{
+"product_id": "alcohol_flask",
+"component_id": "spirit",
+"quantity": 1
+},
+{
+"product_id": "bandage",
+"component_id": "wool",
+"quantity": 2
+},
+{
+"product_id": "bandage",
+"component_id": "fiber",
+"quantity": 15
+},
+{
+"product_id": "sterile_bandage",
+"component_id": "wool",
+"quantity": 5
+},
+{
+"product_id": "sterile_bandage",
+"component_id": "alcohol_flask",
+"quantity": 5
+},
+{
+"product_id": "warming_ointment",
+"component_id": "honey",
+"quantity": 2
+},
+{
+"product_id": "warming_ointment",
+"component_id": "chili_pepper",
+"quantity": 2
+},
+{
+"product_id": "warming_ointment",
+"component_id": "rubber",
+"quantity": 2
+},
+{
+"product_id": "warming_ointment",
+"component_id": "pork_fat",
+"quantity": 5
+},
+{
+"product_id": "liver_extract",
+"component_id": "predator_liver",
+"quantity": 5
+},
+{
+"product_id": "liver_extract",
+"component_id": "sulfur",
+"quantity": 5
+},
+{
+"product_id": "liver_extract",
+"component_id": "empty_flask",
+"quantity": 5
+},
+{
+"product_id": "venom_extract",
+"component_id": "snake_venom",
+"quantity": 5
+},
+{
+"product_id": "venom_extract",
+"component_id": "sulfur",
+"quantity": 3
+},
+{
+"product_id": "venom_extract",
+"component_id": "empty_flask",
+"quantity": 5
+},
+{
+"product_id": "poppy_concentrate",
+"component_id": "steppe_poppy",
+"quantity": 10
+},
+{
+"product_id": "poppy_concentrate",
+"component_id": "sulfur",
+"quantity": 10
+},
+{
+"product_id": "poppy_concentrate",
+"component_id": "empty_flask",
+"quantity": 3
+},
+{
+"product_id": "coca_extract",
+"component_id": "coca_leaves",
+"quantity": 15
+},
+{
+"product_id": "coca_extract",
+"component_id": "sulfur",
+"quantity": 10
+},
+{
+"product_id": "coca_extract",
+"component_id": "empty_flask",
+"quantity": 3
+},
+{
+"product_id": "oak_bark_decoction",
+"component_id": "cork_bark",
+"quantity": 4
+},
+{
+"product_id": "oak_bark_decoction",
+"component_id": "tree_sap",
+"quantity": 10
+},
+{
+"product_id": "oak_bark_decoction",
+"component_id": "empty_flask",
+"quantity": 3
+},
+{
+"product_id": "invigorating_tonic",
+"component_id": "tonic_herbs",
+"quantity": 1
+},
+{
+"product_id": "invigorating_tonic",
+"component_id": "coffee_beans",
+"quantity": 5
+},
+{
+"product_id": "invigorating_tonic",
+"component_id": "empty_flask",
+"quantity": 3
+},
+{
+"product_id": "healing_infusion",
+"component_id": "healing_herbs",
+"quantity": 2
+},
+{
+"product_id": "healing_infusion",
+"component_id": "honey",
+"quantity": 5
+},
+{
+"product_id": "healing_infusion",
+"component_id": "empty_flask",
+"quantity": 4
+},
+{
+"product_id": "ammonia_spirit",
+"component_id": "tonic_herbs",
+"quantity": 1
+},
+{
+"product_id": "ammonia_spirit",
+"component_id": "liver_extract",
+"quantity": 1
+},
+{
+"product_id": "ammonia_spirit",
+"component_id": "alcohol_flask",
+"quantity": 4
+},
+{
+"product_id": "antidote",
+"component_id": "calming_herbs",
+"quantity": 1
+},
+{
+"product_id": "antidote",
+"component_id": "venom_extract",
+"quantity": 1
+},
+{
+"product_id": "antidote",
+"component_id": "alcohol_flask",
+"quantity": 3
+},
+{
+"product_id": "strengthening_mixture",
+"component_id": "restoring_herbs",
+"quantity": 1
+},
+{
+"product_id": "strengthening_mixture",
+"component_id": "tree_sap",
+"quantity": 5
+},
+{
+"product_id": "strengthening_mixture",
+"component_id": "empty_flask",
+"quantity": 2
+},
+{
+"product_id": "healing_drink",
+"component_id": "healing_herbs",
+"quantity": 1
+},
+{
+"product_id": "healing_drink",
+"component_id": "honey",
+"quantity": 7
+},
+{
+"product_id": "healing_drink",
+"component_id": "empty_flask",
+"quantity": 2
+},
+{
+"product_id": "restoring_emulsion",
+"component_id": "tonic_herbs",
+"quantity": 1
+},
+{
+"product_id": "restoring_emulsion",
+"component_id": "resin",
+"quantity": 5
+},
+{
+"product_id": "restoring_emulsion",
+"component_id": "empty_flask",
+"quantity": 2
+},
+{
+"product_id": "reparative_suspension",
+"component_id": "restoring_herbs",
+"quantity": 1
+},
+{
+"product_id": "reparative_suspension",
+"component_id": "rams_head",
+"quantity": 6
+},
+{
+"product_id": "reparative_suspension",
+"component_id": "empty_flask",
+"quantity": 2
+},
+{
+"product_id": "stabilizing_solution",
+"component_id": "calming_herbs",
+"quantity": 1
+},
+{
+"product_id": "stabilizing_solution",
+"component_id": "sulfur",
+"quantity": 2
+},
+{
+"product_id": "stabilizing_solution",
+"component_id": "empty_flask",
+"quantity": 2
+},
+{
+"product_id": "bee_medicine",
+"component_id": "calming_herbs",
+"quantity": 1
+},
+{
+"product_id": "bee_medicine",
+"component_id": "honey",
+"quantity": 2
+},
+{
+"product_id": "bee_medicine",
+"component_id": "tree_sap",
+"quantity": 5
+},
+{
+"product_id": "dog_medicine",
+"component_id": "calming_herbs",
+"quantity": 1
+},
+{
+"product_id": "dog_medicine",
+"component_id": "pork_fat",
+"quantity": 5
+},
+{
+"product_id": "dog_medicine",
+"component_id": "empty_syringe",
+"quantity": 3
+},
+{
+"product_id": "horse_medicine",
+"component_id": "healing_herbs",
+"quantity": 1
+},
+{
+"product_id": "horse_medicine",
+"component_id": "sugar",
+"quantity": 5
+},
+{
+"product_id": "horse_medicine",
+"component_id": "tree_sap",
+"quantity": 10
+},
+{
+"product_id": "coca_gum",
+"component_id": "coca_extract",
+"quantity": 2
+},
+{
+"product_id": "coca_gum",
+"component_id": "honey",
+"quantity": 8
+},
+{
+"product_id": "coca_gum",
+"component_id": "rubber",
+"quantity": 5
+}
+]
+}

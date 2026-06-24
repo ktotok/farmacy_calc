@@ -1,0 +1,16 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Rouds Pharmacy API (FastAPI)",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "uvicorn",
+      "args": ["app.main:app", "--reload", "--port", "8777"],
+      "python": "${workspaceFolder}/backend/.venv/bin/python",
+      "cwd": "${workspaceFolder}/backend",
+      "env": { "PHARMACY_DB": "${workspaceFolder}/data/pharmacy.db" },
+      "console": "integratedTerminal"
+    }
+  ]
+}

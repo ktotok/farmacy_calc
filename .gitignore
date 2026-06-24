@@ -1,0 +1,17 @@
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Database (regenerated from CSV via seed)
+data/pharmacy.db
+
+# Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+.claude/settings.local.json

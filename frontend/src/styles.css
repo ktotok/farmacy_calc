@@ -1,0 +1,237 @@
+:root{
+  --paper:#e7d7b1;
+  --paper-2:#dcc89c;
+  --paper-edge:#c9b07e;
+  --ink:#2b1d10;
+  --ink-soft:#5a4326;
+  --leather:#3a2616;
+  --leather-2:#241509;
+  --gold:#a8842c;
+  --gold-bright:#d8b459;
+  --red:#7c2218;
+  --green:#3f5d2a;
+  --line:#a98f5e;
+  --shadow:rgba(20,12,4,.45);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"PT Serif", Georgia, "Times New Roman", serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 30% 10%, #4a3119, #2a1909 60%, #1c1006 100%);
+  min-height:100vh;
+  padding:24px 12px 60px;
+  font-size:17px;
+}
+
+.page{
+  max-width:1080px;
+  margin:0 auto;
+  background:
+    repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(120,90,50,.05) 29px),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border:2px solid var(--leather);
+  border-radius:6px;
+  box-shadow:0 18px 50px var(--shadow), inset 0 0 70px rgba(120,80,30,.25);
+  padding:28px 34px 40px;
+  position:relative;
+}
+.page::after{
+  content:"";position:absolute;inset:6px;border:1px solid var(--line);
+  border-radius:3px;pointer-events:none;opacity:.5;
+}
+
+/* ---------- header ---------- */
+.ledger-head{text-align:center;margin-bottom:8px}
+.ledger-head h1{
+  font-family:"PT Serif", serif;font-weight:700;
+  font-size:42px;letter-spacing:2px;
+  margin:.1em 0 .05em;color:var(--ink);
+  text-shadow:0 1px 0 rgba(255,245,220,.5);
+}
+.subtitle{
+  font-family:"PT Serif", serif;font-variant:small-caps;
+  margin:0;color:var(--ink-soft);letter-spacing:.5px;
+}
+.ornament{color:var(--gold);font-size:20px;line-height:1}
+
+/* ---------- tabs ---------- */
+.tabs{
+  display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+  margin:18px 0 22px;border-bottom:2px double var(--line);padding-bottom:10px;
+}
+.tab{
+  font-family:"PT Serif",serif;font-variant:small-caps;
+  background:transparent;border:1px solid transparent;border-radius:4px 4px 0 0;
+  color:var(--ink-soft);font-size:18px;padding:8px 22px;cursor:pointer;
+  letter-spacing:.5px;transition:.15s;
+}
+.tab:hover{color:var(--ink);background:rgba(140,100,40,.12)}
+.tab.active{
+  color:var(--ink);background:rgba(140,100,40,.2);
+  border-color:var(--line);border-bottom-color:transparent;
+  box-shadow:inset 0 -3px 0 var(--gold);
+}
+
+.tab-panel{animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1}}
+
+/* ---------- toolbar / fields ---------- */
+.toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.toolbar .spacer{flex:1}
+.hint{color:var(--ink-soft);font-style:italic;margin:0 0 14px;line-height:1.5}
+.field{
+  font-family:inherit;font-size:16px;color:var(--ink);
+  background:rgba(255,250,235,.45);
+  border:1px solid var(--line);border-radius:3px;padding:7px 10px;
+}
+.field:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(168,132,44,.3)}
+.search{flex:1;min-width:200px}
+.check{color:var(--ink-soft);display:flex;align-items:center;gap:6px;cursor:pointer}
+
+.btn{
+  font-family:"PT Serif",serif;font-variant:small-caps;font-size:15px;cursor:pointer;
+  padding:7px 16px;border-radius:3px;letter-spacing:.5px;
+  border:1px solid var(--leather);color:var(--paper);
+  background:linear-gradient(180deg,#5a3c20,#3a2613);
+}
+.btn:hover{filter:brightness(1.12)}
+.btn:disabled{opacity:.5;cursor:not-allowed;filter:none}
+.btn.ghost{background:transparent;color:var(--ink-soft);border-color:var(--line)}
+.btn.ghost:hover{background:rgba(140,100,40,.12);color:var(--ink)}
+.btn.small{font-size:13px;padding:4px 10px}
+.btn.danger{background:linear-gradient(180deg,#7c2218,#4a140d)}
+
+/* ---------- grouped product list ---------- */
+.group{margin-bottom:20px}
+.group>summary{
+  font-family:"PT Serif",serif;font-variant:small-caps;font-size:21px;letter-spacing:.5px;
+  color:var(--ink);cursor:pointer;padding:6px 4px;list-style:none;
+  border-bottom:2px double var(--line);
+}
+.group>summary::-webkit-details-marker{display:none}
+.group>summary::before{content:"\25B8";color:var(--gold);margin-right:10px;display:inline-block;transition:transform .15s}
+.group[open]>summary::before{transform:rotate(90deg)}
+.group>summary .count{color:var(--ink-soft);font-size:14px;margin-left:8px}
+.group .cards{margin-top:14px}
+
+/* ---------- product cards ---------- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.card{
+  background:linear-gradient(180deg, rgba(255,250,235,.55), rgba(220,200,156,.3));
+  border:1px solid var(--line);border-radius:5px;
+  box-shadow:0 4px 14px rgba(40,25,10,.18);
+  padding:16px 18px;display:flex;flex-direction:column;
+}
+.card.incomplete{opacity:.78;border-style:dashed}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.card h3{
+  font-family:"PT Serif",serif;font-weight:700;font-size:19px;letter-spacing:.3px;margin:0 0 2px;line-height:1.2;color:var(--ink);
+}
+.card-actions{display:flex;gap:4px;flex-shrink:0}
+.icon-btn{
+  background:transparent;border:1px solid var(--line);border-radius:3px;cursor:pointer;
+  color:var(--ink-soft);font-size:13px;padding:2px 7px;line-height:1.3;
+}
+.icon-btn:hover{color:var(--ink);background:rgba(140,100,40,.14)}
+.card .meta{font-size:13px;color:var(--ink-soft);margin-bottom:10px;letter-spacing:.3px}
+.badge{
+  display:inline-block;font-family:"PT Serif",serif;font-variant:small-caps;font-size:12px;
+  background:rgba(124,34,24,.14);border:1px solid rgba(124,34,24,.4);color:var(--red);
+  border-radius:10px;padding:1px 8px;margin-left:6px;
+}
+.badge.lvl{background:rgba(63,93,42,.14);border-color:rgba(63,93,42,.4);color:var(--green)}
+
+.recipe{list-style:none;margin:6px 0 12px;padding:0;border-top:1px dotted var(--line)}
+.recipe li{
+  display:flex;justify-content:space-between;gap:8px;
+  padding:5px 0;border-bottom:1px dotted var(--line);font-size:15px;
+}
+.recipe .qty{color:var(--ink-soft);font-variant-numeric:tabular-nums}
+.recipe .iname{flex:1}
+.recipe .iname.craft,.recipe .iname.rawlink{text-decoration:underline dotted;cursor:pointer}
+.recipe .iname.craft:hover,.recipe .iname.rawlink:hover{color:var(--gold)}
+.recipe .icost{color:var(--ink-soft);font-variant-numeric:tabular-nums;min-width:62px;text-align:right}
+.tag{font-size:11px;font-family:"PT Serif",serif;font-variant:small-caps;color:var(--gold);margin-left:4px}
+.tag.raw{color:var(--ink-soft)}
+
+/* ---------- navigation flash highlight ---------- */
+.card.flash{animation:flashcard 1.7s ease}
+@keyframes flashcard{0%,22%{box-shadow:0 0 0 3px var(--gold)}100%{box-shadow:0 4px 14px rgba(40,25,10,.18)}}
+tr.flash td{animation:flashrow 1.7s ease}
+@keyframes flashrow{0%,22%{background:rgba(168,132,44,.5)}100%{background:transparent}}
+
+.calc{margin-top:auto;border-top:2px solid var(--line);padding-top:10px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:3px 0;font-size:15px}
+.calc-row .lbl{color:var(--ink-soft)}
+.calc-row .val{font-variant-numeric:tabular-nums;font-weight:bold}
+.price-input{width:88px;text-align:right;font-variant-numeric:tabular-nums}
+.profit-pos{color:var(--green)}
+.profit-neg{color:var(--red)}
+
+/* ---------- tables ---------- */
+.ledger-table{width:100%;border-collapse:collapse;font-size:16px}
+.ledger-table th{
+  font-family:"PT Serif",serif;font-variant:small-caps;text-align:left;letter-spacing:.5px;
+  color:var(--ink);border-bottom:2px solid var(--line);padding:8px 10px;
+}
+.ledger-table.sortable th[data-sort]{cursor:pointer}
+.ledger-table.sortable th[data-sort]:hover{color:var(--gold)}
+.ledger-table td{padding:7px 10px;border-bottom:1px dotted var(--line)}
+.ledger-table tr:nth-child(even) td{background:rgba(140,100,40,.06)}
+.ledger-table .num{text-align:right;font-variant-numeric:tabular-nums}
+.ledger-table tbody tr:hover td{background:rgba(168,132,44,.14)}
+
+.ledger-foot{
+  margin-top:26px;padding-top:12px;border-top:2px double var(--line);
+  text-align:center;color:var(--ink-soft);font-style:italic;font-size:13px;
+}
+
+/* ---------- modal / forms (management UI) ---------- */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(20,12,4,.6);
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:40px 16px;overflow:auto;z-index:50;
+}
+.modal{
+  background:linear-gradient(180deg, var(--paper) 0%, var(--paper-2) 100%);
+  border:2px solid var(--leather);border-radius:6px;
+  box-shadow:0 18px 50px var(--shadow);
+  padding:24px 28px;width:100%;max-width:560px;position:relative;
+}
+.modal h2{
+  font-family:"PT Serif",serif;font-variant:small-caps;font-size:24px;
+  margin:0 0 16px;color:var(--ink);border-bottom:2px double var(--line);padding-bottom:8px;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.form-row{display:flex;flex-direction:column;gap:4px}
+.form-row.full{grid-column:1 / -1}
+.form-row label{font-size:13px;color:var(--ink-soft);font-variant:small-caps;letter-spacing:.5px}
+.form-row .field{width:100%}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:20px;
+  border-top:2px double var(--line);padding-top:14px}
+.form-error{color:var(--red);font-style:italic;margin:10px 0 0;min-height:1.2em}
+
+/* recipe editor rows */
+.recipe-edit{list-style:none;margin:6px 0;padding:0}
+.recipe-edit li{display:flex;gap:8px;align-items:center;padding:5px 0;border-bottom:1px dotted var(--line)}
+.recipe-edit .comp-name{flex:1}
+.recipe-edit .qty-input{width:70px;text-align:right}
+
+/* ---------- toast ---------- */
+.toast{
+  position:fixed;bottom:22px;left:50%;transform:translateX(-50%);
+  background:var(--leather);color:var(--paper);border:1px solid var(--gold);
+  padding:10px 20px;border-radius:4px;font-size:15px;z-index:60;
+  box-shadow:0 8px 24px var(--shadow);max-width:90vw;
+}
+.toast.err{background:var(--red);border-color:#e3a;}
+
+@media(max-width:640px){
+  .page{padding:18px 16px 30px}
+  .ledger-head h1{font-size:30px}
+  .cards{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+}

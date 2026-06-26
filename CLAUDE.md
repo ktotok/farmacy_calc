@@ -21,6 +21,23 @@ from `http://127.0.0.1:8777`.
 Preview (Claude): `.claude/launch.json` defines the `frontend` Vite server; the
 backend still needs to be running separately for `/api`.
 
+## Deployment (Railway)
+
+Hosted on Railway as a single Docker container (Dockerfile at repo root):
+multi-stage build — `node:22` runs `npm run build`, then `python:3.11` serves the
+API and the built `frontend/dist` from one process bound to `$PORT`.
+
+- **Builder**: `railway.json` pins the Dockerfile builder + a `/api/data`
+  healthcheck. `.dockerignore` excludes `node_modules`, `Medicine/`, the local DB.
+- **Persistence**: the SQLite DB lives on a mounted Railway **Volume** (mount path
+  `/data`), with env var `PHARMACY_DB=/data/pharmacy.db`. It seeds once from the
+  CSVs on first boot (`Seeded DB from CSV: …` in the logs), then persists all
+  in-app edits across deploys. The DB does **not** reseed once populated — to apply
+  CSV data changes, re-import via the in-app CSV import.
+- **Updates**: `git push` to `main` → Railway auto-rebuilds and redeploys.
+- No app code is Railway-specific: the port comes from the Dockerfile CMD
+  (`--port ${PORT}`) and the DB path from `PHARMACY_DB` (`backend/app/db.py`).
+
 ## Architecture
 
 Three tiers — **SQLite** (data) + **FastAPI** (backend) + **React/Vite/TS** (frontend).

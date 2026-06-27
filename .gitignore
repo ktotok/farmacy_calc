@@ -15,3 +15,8 @@ frontend/*.tsbuildinfo
 # OS / editor
 .DS_Store
 .claude/settings.local.json
+
+# Agent skills (installed via `npx skills`, not project code)
+.agents/
+.claude/skills/
+skills-lock.json

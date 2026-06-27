@@ -1,8 +1,8 @@
 # Frontend (React + Vite + TS)
 
-React/Vite/TS client that boots from `GET /api/data` and recomputes costs
-client-side. See the root [CLAUDE.md](../CLAUDE.md) for the overall architecture,
-data flow and the cost model description.
+React/Vite/TS client that boots from `GET /api/data`, recomputes costs
+client-side. See root [CLAUDE.md](../CLAUDE.md) for overall architecture, data
+flow, cost model description.
 
 ## Layout
 
@@ -17,18 +17,18 @@ frontend/
     costModel.test.ts  ← parity guard vs __fixtures__/expected_costs.json
 ```
 
-`costModel.ts` is the live port of the cost model — keep it in lock-step with
+`costModel.ts` is live port of cost model — keep in lock-step with
 `backend/app/cost.py` (see root [CLAUDE.md](../CLAUDE.md) → Cost model).
 
 ## UI tabs
 
 - **Вироби** — `product` items, grouped by `shop_section`
-- **Проміжні** — `intermediate` items (crafted and used as ingredients elsewhere)
+- **Проміжні** — `intermediate` items (crafted, used as ingredients elsewhere)
 - **Сировина** — `raw` items with editable buy-price inputs
 - **Зведення** — sortable profit summary across all crafted items
 
-Each card has ✎ (edit item) and "рецепт" (edit recipe) actions; the top toolbar
-has "+ Новий виріб" and CSV import/export.
+Each card has ✎ (edit item) + "рецепт" (edit recipe) actions; top toolbar has
+"+ Новий виріб" + CSV import/export.
 
 ## Adding a new shop_section label
 
@@ -41,8 +41,8 @@ export const SECTION_LABELS = { ..., new_key: "Українська назва" 
 
 ## Style rules
 
-- Font: **PT Serif** exclusively (`"PT Serif", Georgia, "Times New Roman", serif`). All UI text is Ukrainian/Cyrillic — do not introduce Latin-only decorative fonts.
-- All user-visible strings are in Ukrainian.
+- Font: **PT Serif** exclusively (`"PT Serif", Georgia, "Times New Roman", serif`). All UI text Ukrainian/Cyrillic — do not introduce Latin-only decorative fonts.
+- All user-visible strings in Ukrainian.
 
 ## Running
 
@@ -59,6 +59,6 @@ npm run dev        # http://127.0.0.1:5173
 cd frontend && npm test   # cost-model parity (vitest)
 ```
 
-If item/recipe data changes, regenerate the parity fixtures: run the backend,
-then dump `/api/data` → `src/__fixtures__/data.json` and `all_unit_costs(...)` →
+If item/recipe data changes, regenerate parity fixtures: run backend, then dump
+`/api/data` → `src/__fixtures__/data.json` and `all_unit_costs(...)` →
 `src/__fixtures__/expected_costs.json`.

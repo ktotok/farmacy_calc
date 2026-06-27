@@ -1,7 +1,7 @@
 # Backend (FastAPI)
 
-FastAPI + SQLModel over SQLite. See the root [CLAUDE.md](../CLAUDE.md) for the
-overall architecture, data flow and the cost model description.
+FastAPI + SQLModel over SQLite. See root [CLAUDE.md](../CLAUDE.md) for overall
+architecture, data flow, cost model description.
 
 ## Layout
 
@@ -22,18 +22,18 @@ backend/
   tests/               ← pytest (shape, validation, cost anchors, CSV round-trip)
 ```
 
-`cost.py` is the parity reference for the cost model — keep it in lock-step with
+`cost.py` is parity reference for cost model — keep in lock-step with
 `frontend/src/costModel.ts` (see root [CLAUDE.md](../CLAUDE.md) → Cost model).
 
 ## Integrity enforced by the DB / API (was impossible with flat CSVs)
 
-- `item.type` is a closed enum (`raw|intermediate|product|shop`).
-- Prices and `output_qty` have CHECK constraints (`>= 0`, `output_qty >= 1`).
+- `item.type` is closed enum (`raw|intermediate|product|shop`).
+- Prices + `output_qty` have CHECK constraints (`>= 0`, `output_qty >= 1`).
 - `recipe_component` has FK → `item.id` with `ON DELETE CASCADE`.
 - Recipe edits rejected (422) on orphan component, self-reference, or cycle
   (see `routers/recipes.py::_creates_cycle`).
-- Note: the seed auto-creates any recipe component missing from `items.csv` as a
-  raw item with NULL `buy_price` (e.g. `wolfberry`), preserving FK integrity while
+- Note: seed auto-creates any recipe component missing from `items.csv` as raw
+  item with NULL `buy_price` (e.g. `wolfberry`), preserving FK integrity while
   keeping its dependents' cost unknown ("—").
 
 ## Items (`data/items.csv` columns / `Item` model)

@@ -1,15 +1,14 @@
 # farmacy_calc
 
-A cost/profit calculator for the RedM "Аптека Роудс" pharmacy: it tracks raw
-ingredients, intermediate crafts and finished products, computes the unit cost
-of every craftable item from its recipe, and surfaces profit margins across the
-shop. The whole app is in Ukrainian.
+Cost/profit calculator for RedM "Аптека Роудс" pharmacy: tracks raw ingredients,
+intermediate crafts, finished products; computes unit cost of every craftable
+item from its recipe; surfaces profit margins across shop. Whole app in Ukrainian.
 
-Tier-specific guidance lives next to the code it describes:
+Tier-specific guidance lives next to code it describes:
 
 - [backend/CLAUDE.md](backend/CLAUDE.md) — FastAPI app, DB/API integrity rules,
-  the `Item` model / CSV columns, backend tests.
-- [frontend/CLAUDE.md](frontend/CLAUDE.md) — React UI, tabs, the `shop_section`
+  `Item` model / CSV columns, backend tests.
+- [frontend/CLAUDE.md](frontend/CLAUDE.md) — React UI, tabs, `shop_section`
   label pattern, fonts, frontend tests.
 
 ## Architecture
@@ -27,12 +26,12 @@ frontend/   ← React/Vite/TS client (see frontend/CLAUDE.md)
 
 ### Data flow
 
-SQLite is the source of truth. `GET /api/data` returns all items + recipes as
-typed JSON; the React client boots from it and recomputes costs client-side.
-Writes go through the API (`/api/items`, `/api/recipes`, price batch) with
-Pydantic + business-rule validation. The CSVs are only read at first-run seed and
-via the import/export endpoints — editing a CSV no longer changes the app live;
-re-import it (or delete `data/pharmacy.db` and re-seed) instead.
+SQLite = source of truth. `GET /api/data` returns all items + recipes as typed
+JSON; React client boots from it, recomputes costs client-side. Writes go through
+API (`/api/items`, `/api/recipes`, price batch) with Pydantic + business-rule
+validation. CSVs read only at first-run seed + via import/export endpoints —
+editing a CSV no longer changes app live; re-import it (or delete
+`data/pharmacy.db` and re-seed) instead.
 
 ### Cost model
 
@@ -41,10 +40,10 @@ unit_cost(raw item)     = buy_price
 unit_cost(crafted item) = Σ(unit_cost(component) × qty) / output_qty
 ```
 
-Recursive with a cycle-guard `Set`; returns null (rendered "—") when a price is
-unknown or a cycle is hit. Implemented twice and kept in lock-step:
-`frontend/src/costModel.ts` (live UI) and `backend/app/cost.py` (test reference).
-`costModel.test.ts` asserts they match for the seeded data.
+Recursive with cycle-guard `Set`; returns null (rendered "—") when price unknown
+or cycle hit. Implemented twice, kept in lock-step: `frontend/src/costModel.ts`
+(live UI) and `backend/app/cost.py` (test reference). `costModel.test.ts` asserts
+they match for seeded data.
 
 ## Running the app
 
@@ -63,20 +62,19 @@ npm run dev        # http://127.0.0.1:5173
 ```
 
 Single-process / production: `npm --prefix frontend run build` then start uvicorn
-— `app/main.py` mounts `frontend/dist` as static files, so the whole app is served
-from `http://127.0.0.1:8777`.
+— `app/main.py` mounts `frontend/dist` as static files, so whole app served from
+`http://127.0.0.1:8777`.
 
-Preview (Claude): `.claude/launch.json` defines the `frontend` Vite server; the
-backend still needs to be running separately for `/api`.
+Preview (Claude): `.claude/launch.json` defines `frontend` Vite server; backend
+still needs to run separately for `/api`.
 
 ## Run as a Docker container
 
-The whole app — FastAPI API, the built React frontend, and the SQLite DB — runs
-from a single container off the repo-root `Dockerfile` (the same image Railway
-deploys). It's a multi-stage build: `node:22` runs `npm run build`, then
-`python:3.11` installs the backend deps and serves the API plus the built
-`frontend/dist` as static files from one uvicorn process. No SQLite server is
-needed — SQLite is an embedded file inside the container.
+Whole app — FastAPI API, built React frontend, SQLite DB — runs from single
+container off repo-root `Dockerfile` (same image Railway deploys). Multi-stage
+build: `node:22` runs `npm run build`, then `python:3.11` installs backend deps +
+serves API plus built `frontend/dist` as static files from one uvicorn process.
+No SQLite server needed — SQLite is embedded file inside container.
 
 ```bash
 # Build the image (run from repo root)
@@ -91,24 +89,23 @@ docker run --rm -p 8777:8777 \
   farmacy_calc
 ```
 
-Then open `http://127.0.0.1:8777` — frontend and `/api` are served from the same
-origin. On first boot the DB seeds from the bundled CSVs (`Seeded DB from CSV: …`
-in the logs); after that all in-app edits persist in the mounted volume and the
-DB does **not** reseed.
+Then open `http://127.0.0.1:8777` — frontend and `/api` served from same origin.
+On first boot DB seeds from bundled CSVs (`Seeded DB from CSV: …` in logs); after
+that all in-app edits persist in mounted volume, DB does **not** reseed.
 
 ## Deployment (Railway)
 
-Hosted on Railway as a single Docker container (Dockerfile at repo root):
-multi-stage build — `node:22` runs `npm run build`, then `python:3.11` serves the
-API and the built `frontend/dist` from one process bound to `$PORT`.
+Hosted on Railway as single Docker container (Dockerfile at repo root):
+multi-stage build — `node:22` runs `npm run build`, then `python:3.11` serves API
+and built `frontend/dist` from one process bound to `$PORT`.
 
-- **Builder**: `railway.json` pins the Dockerfile builder + a `/api/data`
-  healthcheck. `.dockerignore` excludes `node_modules`, `Medicine/`, the local DB.
-- **Persistence**: the SQLite DB lives on a mounted Railway **Volume** (mount path
-  `/data`), with env var `PHARMACY_DB=/data/pharmacy.db`. It seeds once from the
-  CSVs on first boot (`Seeded DB from CSV: …` in the logs), then persists all
-  in-app edits across deploys. The DB does **not** reseed once populated — to apply
-  CSV data changes, re-import via the in-app CSV import.
-- **Updates**: `git push` to `main` → Railway auto-rebuilds and redeploys.
-- No app code is Railway-specific: the port comes from the Dockerfile CMD
-  (`--port ${PORT}`) and the DB path from `PHARMACY_DB` (`backend/app/db.py`).
+- **Builder**: `railway.json` pins Dockerfile builder + a `/api/data`
+  healthcheck. `.dockerignore` excludes `node_modules`, `Medicine/`, local DB.
+- **Persistence**: SQLite DB lives on mounted Railway **Volume** (mount path
+  `/data`), env var `PHARMACY_DB=/data/pharmacy.db`. Seeds once from CSVs on first
+  boot (`Seeded DB from CSV: …` in logs), then persists all in-app edits across
+  deploys. DB does **not** reseed once populated — to apply CSV data changes,
+  re-import via in-app CSV import.
+- **Updates**: `git push` to `main` → Railway auto-rebuilds + redeploys.
+- No app code Railway-specific: port comes from Dockerfile CMD (`--port ${PORT}`)
+  and DB path from `PHARMACY_DB` (`backend/app/db.py`).

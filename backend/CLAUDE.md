@@ -1,7 +1,8 @@
+Based on the error, I need to restore `items.csv` as inline code in the integrity section. The fix: "Seed auto-creates missing recipe components" → "Seed auto-creates any recipe component missing from `items.csv`".
+
 # Backend (FastAPI)
 
-FastAPI + SQLModel over SQLite. See root [CLAUDE.md](../CLAUDE.md) for overall
-architecture, data flow, cost model description.
+FastAPI + SQLModel over SQLite. Root [CLAUDE.md](../CLAUDE.md) — architecture, data flow, cost model.
 
 ## Layout
 
@@ -22,19 +23,15 @@ backend/
   tests/               ← pytest (shape, validation, cost anchors, CSV round-trip)
 ```
 
-`cost.py` is parity reference for cost model — keep in lock-step with
-`frontend/src/costModel.ts` (see root [CLAUDE.md](../CLAUDE.md) → Cost model).
+`cost.py` parity ref for cost model — keep lock-step with `frontend/src/costModel.ts` (root [CLAUDE.md](../CLAUDE.md) → Cost model).
 
-## Integrity enforced by the DB / API (was impossible with flat CSVs)
+## Integrity enforced by DB / API (impossible with flat CSVs)
 
-- `item.type` is closed enum (`raw|intermediate|product|shop`).
-- Prices + `output_qty` have CHECK constraints (`>= 0`, `output_qty >= 1`).
-- `recipe_component` has FK → `item.id` with `ON DELETE CASCADE`.
-- Recipe edits rejected (422) on orphan component, self-reference, or cycle
-  (see `routers/recipes.py::_creates_cycle`).
-- Note: seed auto-creates any recipe component missing from `items.csv` as raw
-  item with NULL `buy_price` (e.g. `wolfberry`), preserving FK integrity while
-  keeping its dependents' cost unknown ("—").
+- `item.type` closed enum (`raw|intermediate|product|shop`).
+- Prices + `output_qty` CHECK constraints (`>= 0`, `output_qty >= 1`).
+- `recipe_component` FK → `item.id` `ON DELETE CASCADE`.
+- Recipe edits rejected (422) on orphan component, self-reference, or cycle (`routers/recipes.py::_creates_cycle`).
+- Seed auto-creates any recipe component missing from `items.csv` as raw item with NULL `buy_price` — preserves FK integrity, cost unknown ("—").
 
 ## Items (`data/items.csv` columns / `Item` model)
 
@@ -44,7 +41,7 @@ backend/
 | `buy_price` | set for `raw` items, null for crafted |
 | `sell_price` | set for items sold in-shop |
 | `shop_section` | groups products in the Вироби tab |
-| `components_complete` | `false` when recipe was not captured from screenshots |
+| `components_complete` | `false` when recipe not captured from screenshots |
 
 ## Running
 

@@ -5,7 +5,7 @@ from app.cost import all_unit_costs
 def test_data_shape_and_counts(client):
     d = client.get("/api/data").json()
     assert {"items", "recipes"} == set(d)
-    assert len(d["items"]) == 64  # 63 from CSV + auto-created wolfberry
+    assert len(d["items"]) == 63  # all from CSV, no auto-created items
     assert len(d["recipes"]) == 76
     item = next(i for i in d["items"] if i["id"] == "antidote")
     # typed JSON: numbers are numbers, booleans are booleans
@@ -21,8 +21,8 @@ def test_cost_model_anchors(client):
     assert costs["bandage"] == 0
     # tonic_herbs = (ginseng 0.3 *3 + bitter_weed 0*3 + desert_sage 0*3)/1 -> 0.9
     assert abs(costs["tonic_herbs"] - 0.9) < 1e-9
-    # restoring_herbs depends on wolfberry (unknown price) -> None
-    assert costs["restoring_herbs"] is None
+    # restoring_herbs = (yarrow 0.3*3 + milkweed 0*3 + sensitive_mimosa 0*3)/1 -> 0.9
+    assert abs(costs["restoring_herbs"] - 0.9) < 1e-9
 
 
 def test_orphan_component_rejected(client):

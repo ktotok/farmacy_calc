@@ -1,8 +1,8 @@
 # farmacy_calc
 
-Cost/profit calculator for RedM "Аптека Роудс" pharmacy: tracks raw ingredients,
-intermediate crafts, finished products; computes unit cost of every craftable
-item from its recipe; surfaces profit margins across shop. Whole app in Ukrainian.
+Cost/profit calculator for RedM "Аптека Роудс" pharmacy. Track raw ingredients,
+intermediate crafts, finished products; compute unit cost of every craftable item
+from its recipe; surface profit margins across shop. Whole app Ukrainian.
 
 Tier-specific guidance lives next to code it describes:
 

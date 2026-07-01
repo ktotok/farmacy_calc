@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+cd /app/backend
+python -m app.seed
+python -m app.migrate
+exec uvicorn app.main:app --host 0.0.0.0 --port "${PORT:-8777}"

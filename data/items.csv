@@ -2,9 +2,6 @@ id,name_uk,category,type,buy_price,craft_level,craft_time,craft_exp,output_qty,s
 antidote,Протиотрута,mixture,product,,3,00:50,3,3,ANTIDOTE,5.00,true,
 bandage,Бинт,bandage,product,,1,00:15,1,5,BANDAGES,0.50,true,
 sterile_bandage,Стерильний бинт,bandage,product,,1,00:20,1,5,BANDAGES,2.00,true,
-analgesic_infusion,Знеболювальні настої,misc,shop,,,,,,MISCELLANEOUS,11.00,,No crafting recipe captured
-bandage_belt,Бандажний пояс,misc,shop,,,,,,MISCELLANEOUS,3.50,,No crafting recipe captured
-spray_syringe,Розпилюючий шприц,misc,shop,,,,,,MISCELLANEOUS,25.00,,No crafting recipe captured
 strengthening_mixture,Зміцнююча мікстура,mixture,product,,3,00:45,3,2,MIXTURE,7.50,true,
 healing_drink,Загоюючий напій,mixture,product,,3,00:45,3,2,MIXTURE,15.50,true,
 restoring_emulsion,Відновлююча емульсія,mixture,product,,3,00:45,3,2,MIXTURE,8.00,true,

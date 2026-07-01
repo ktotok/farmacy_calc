@@ -20,5 +20,4 @@ export const ITEM_TYPE_LABELS: Record<string, string> = {
   raw: "Сировина",
   intermediate: "Напівфабрикат",
   product: "Виріб",
-  shop: "Крамничний",
 };

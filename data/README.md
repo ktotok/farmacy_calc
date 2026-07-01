@@ -26,7 +26,7 @@ One row per item. Columns:
 | `id` | stable `snake_case` latin key (use as primary key / i18n key) |
 | `name_uk` | original Ukrainian name from the game |
 | `category` | loose grouping (herbs, extract, tonic, mixture, animal, drug, bandage, raw, misc…) |
-| `type` | `raw`, `intermediate` (crafted & used in other recipes), `product` (crafted final good), `shop` (sold in shop, no captured recipe) |
+| `type` | `raw`, `intermediate` (crafted & used in other recipes), `product` (crafted final good) |
 | `buy_price` | **user-editable input.** Set for every `raw` item (default `0`). This is the per-unit purchase price the app uses to roll up crafted-item cost. Blank for crafted items (their cost is derived). |
 | `craft_level` | required crafting level (`Вимога`) |
 | `craft_time` | craft duration `mm:ss` |

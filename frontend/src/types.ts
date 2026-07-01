@@ -1,4 +1,4 @@
-export type ItemType = "raw" | "intermediate" | "product" | "shop";
+export type ItemType = "raw" | "intermediate" | "product";
 
 export interface Item {
   id: string;

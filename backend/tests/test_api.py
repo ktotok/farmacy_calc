@@ -5,7 +5,7 @@ from app.cost import all_unit_costs
 def test_data_shape_and_counts(client):
     d = client.get("/api/data").json()
     assert {"items", "recipes"} == set(d)
-    assert len(d["items"]) == 63  # all from CSV, no auto-created items
+    assert len(d["items"]) == 60  # all from CSV minus 3 removed shop items
     assert len(d["recipes"]) == 76
     item = next(i for i in d["items"] if i["id"] == "antidote")
     # typed JSON: numbers are numbers, booleans are booleans

@@ -11,11 +11,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from sqlmodel import Session
 
-from .db import engine, init_db
+from .db import init_db
 from .routers import data, io, items, recipes
-from .seed import seed
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DIST = os.path.join(ROOT, "frontend", "dist")
@@ -24,10 +22,6 @@ DIST = os.path.join(ROOT, "frontend", "dist")
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     init_db()
-    with Session(engine) as session:
-        result = seed(session)
-    if not result.get("skipped"):
-        print("Seeded DB from CSV:", result)
     yield
 
 

@@ -50,9 +50,11 @@ they match for seeded data.
 Two processes in development (backend API + Vite dev server):
 
 ```bash
-# 1. Backend (FastAPI). First run creates+seeds data/pharmacy.db from the CSVs.
+# 1. Backend (FastAPI).
 cd backend
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # first time only
+.venv/bin/python -m app.seed     # seed DB from CSVs (idempotent; run once)
+.venv/bin/python -m app.migrate  # apply SQL migrations (idempotent; run once)
 .venv/bin/uvicorn app.main:app --reload --port 8777
 
 # 2. Frontend (React + Vite), proxies /api → 127.0.0.1:8777

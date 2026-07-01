@@ -1,7 +1,7 @@
 """SQLModel tables mirroring the two CSVs, with the integrity the CSVs can't enforce.
 
 Constraints added over the flat CSVs:
-  - item.type is a closed enum (raw|intermediate|product|shop)
+  - item.type is a closed enum (raw|intermediate|product)
   - prices are non-negative (CHECK)
   - recipe_component.quantity >= 1 (CHECK)
   - recipe_component references real items (FK, ON DELETE CASCADE)
@@ -18,7 +18,6 @@ class ItemType(str, enum.Enum):
     raw = "raw"
     intermediate = "intermediate"
     product = "product"
-    shop = "shop"
 
 
 class Item(SQLModel, table=True):

@@ -59,4 +59,4 @@ export const api = {
     req<unknown>("/api/import/recipes", { method: "POST", headers: { "Content-Type": "text/plain" }, body: csv }),
 };
 
-export const TYPES: ItemType[] = ["raw", "intermediate", "product", "shop"];
+export const TYPES: ItemType[] = ["raw", "intermediate", "product"];

@@ -15,5 +15,6 @@ RUN pip install --no-cache-dir -r backend/requirements.txt
 COPY backend/ backend/
 COPY data/ data/
 COPY --from=frontend /app/frontend/dist frontend/dist
-# Railway sets $PORT; bind 0.0.0.0. --app-dir puts backend/ on the import path.
-CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8777} --app-dir backend"]
+RUN chmod +x /app/backend/entrypoint.sh
+# entrypoint: seed (idempotent) → migrate (idempotent) → uvicorn
+CMD ["/app/backend/entrypoint.sh"]

@@ -20,13 +20,20 @@ export function availableComponents(items: Item[], item: Item, rows: Row[]): Ite
     .sort((a, b) => a.name_uk.localeCompare(b.name_uk, "uk"));
 }
 
+// Exported for unit testing — text filter for the component picker list.
+export function filterByText(items: Item[], query: string): Item[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return items;
+  return items.filter((i) => i.name_uk.toLowerCase().includes(q) || i.id.includes(q));
+}
+
 export default function RecipeEditor({ item, items, recipeOf, onClose, onSaved }: Props) {
   const initial: Row[] = (recipeOf[item.id] || []).map((r) => ({
     component_id: r.component_id,
     quantity: r.quantity,
   }));
   const [rows, setRows] = useState<Row[]>(initial);
-  const [addId, setAddId] = useState("");
+  const [filter, setFilter] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -37,11 +44,10 @@ export default function RecipeEditor({ item, items, recipeOf, onClose, onSaved }
   }, [items]);
 
   const available = availableComponents(items, item, rows);
+  const filteredAvailable = filterByText(available, filter);
 
-  function addRow() {
-    if (!addId) return;
-    setRows((r) => [...r, { component_id: addId, quantity: 1 }]);
-    setAddId("");
+  function addRow(componentId: string) {
+    setRows((r) => [...r, { component_id: componentId, quantity: 1 }]);
   }
 
   async function save() {
@@ -82,12 +88,17 @@ export default function RecipeEditor({ item, items, recipeOf, onClose, onSaved }
             </li>
           ))}
         </ul>
-        <div className="toolbar" style={{ marginTop: 12 }}>
-          <select className="field" style={{ flex: 1 }} value={addId} onChange={(e) => setAddId(e.target.value)}>
-            <option value="">— додати компонент —</option>
-            {available.map((i) => <option key={i.id} value={i.id}>{i.name_uk}</option>)}
-          </select>
-          <button className="btn ghost" onClick={addRow} disabled={!addId}>Додати</button>
+        <div style={{ marginTop: 12 }}>
+          <input className="field search" type="search" placeholder="Пошук компонента…"
+            value={filter} onChange={(e) => setFilter(e.target.value)} style={{ width: "100%" }} />
+          <ul className="component-picker-list">
+            {filteredAvailable.length === 0 && (
+              <li className="hint">Нічого не знайдено.</li>
+            )}
+            {filteredAvailable.map((i) => (
+              <li key={i.id} onClick={() => addRow(i.id)}>{i.name_uk}</li>
+            ))}
+          </ul>
         </div>
         {error && <p className="form-error">{error}</p>}
         <div className="modal-actions">

@@ -220,6 +220,21 @@ tr.flash td{animation:flashrow 1.7s ease}
 .recipe-edit .comp-name{flex:1}
 .recipe-edit .qty-input{width:70px;text-align:right}
 
+/* recipe editor: add-component picker */
+.component-picker-list{
+  list-style:none;margin:8px 0 0;padding:2px;
+  max-height:220px;overflow-y:auto;
+  border:1px solid var(--line);border-radius:3px;
+  background:rgba(255,250,235,.45);
+}
+.component-picker-list li{
+  padding:6px 10px;cursor:pointer;border-bottom:1px dotted var(--line);
+}
+.component-picker-list li:last-child{border-bottom:none}
+.component-picker-list li:hover{background:rgba(140,100,40,.14);color:var(--ink)}
+.component-picker-list li.hint{cursor:default;color:var(--ink-soft);font-style:italic}
+.component-picker-list li.hint:hover{background:none}
+
 /* ---------- toast ---------- */
 .toast{
   position:fixed;bottom:22px;left:50%;transform:translateX(-50%);

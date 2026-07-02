@@ -229,7 +229,9 @@ export default function App() {
       </footer>
 
       {editItem !== undefined && (
-        <ItemForm item={editItem} onClose={() => setEditItem(undefined)}
+        <ItemForm item={editItem}
+          hasRecipe={!!editItem && (recipeOf[editItem.id]?.length ?? 0) > 0}
+          onClose={() => setEditItem(undefined)}
           onSaved={() => { setEditItem(undefined); notify("Збережено."); load(); }}
           onDeleted={() => { setEditItem(undefined); notify("Видалено."); load(); }} />
       )}

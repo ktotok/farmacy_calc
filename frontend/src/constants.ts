@@ -1,14 +1,14 @@
 // Shop-section grouping for the Вироби tab (ported from the legacy app.js).
 export const SECTION_ORDER = [
-  "BANDAGES", "MIXTURE", "ANTIDOTE", "MISCELLANEOUS",
+  "bandages", "mixture", "antidote", "miscellaneous",
   "ointment", "tonic", "animal", "drug", "__other",
 ];
 
 export const SECTION_LABELS: Record<string, string> = {
-  BANDAGES: "Бинти",
-  MIXTURE: "Мікстури",
-  ANTIDOTE: "Антидоти",
-  MISCELLANEOUS: "Різне",
+  bandages: "Бинти",
+  mixture: "Мікстури",
+  antidote: "Антидоти",
+  miscellaneous: "Різне",
   ointment: "Мазь",
   tonic: "Тонік",
   animal: "Ветеринарні препарати",

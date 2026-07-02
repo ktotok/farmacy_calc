@@ -10,7 +10,7 @@
 "craft_time": "00:50",
 "craft_exp": 3,
 "output_qty": 3,
-"shop_section": "ANTIDOTE",
+"shop_section": "antidote",
 "sell_price": 5.0,
 "components_complete": true,
 "notes": null
@@ -25,7 +25,7 @@
 "craft_time": "00:15",
 "craft_exp": 1,
 "output_qty": 5,
-"shop_section": "BANDAGES",
+"shop_section": "bandages",
 "sell_price": 0.5,
 "components_complete": true,
 "notes": null
@@ -40,7 +40,7 @@
 "craft_time": "00:20",
 "craft_exp": 1,
 "output_qty": 5,
-"shop_section": "BANDAGES",
+"shop_section": "bandages",
 "sell_price": 2.0,
 "components_complete": true,
 "notes": null
@@ -55,7 +55,7 @@
 "craft_time": "00:45",
 "craft_exp": 3,
 "output_qty": 2,
-"shop_section": "MIXTURE",
+"shop_section": "mixture",
 "sell_price": 7.5,
 "components_complete": true,
 "notes": null
@@ -70,7 +70,7 @@
 "craft_time": "00:45",
 "craft_exp": 3,
 "output_qty": 2,
-"shop_section": "MIXTURE",
+"shop_section": "mixture",
 "sell_price": 15.5,
 "components_complete": true,
 "notes": null
@@ -85,7 +85,7 @@
 "craft_time": "00:45",
 "craft_exp": 3,
 "output_qty": 2,
-"shop_section": "MIXTURE",
+"shop_section": "mixture",
 "sell_price": 8.0,
 "components_complete": true,
 "notes": null
@@ -100,7 +100,7 @@
 "craft_time": "00:45",
 "craft_exp": 3,
 "output_qty": 2,
-"shop_section": "MIXTURE",
+"shop_section": "mixture",
 "sell_price": 8.0,
 "components_complete": true,
 "notes": null
@@ -115,7 +115,7 @@
 "craft_time": "00:45",
 "craft_exp": 3,
 "output_qty": 2,
-"shop_section": "MIXTURE",
+"shop_section": "mixture",
 "sell_price": 8.0,
 "components_complete": true,
 "notes": "Shop page spells it \"Стабілізуючий розчин\""

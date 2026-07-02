@@ -1,5 +1,6 @@
 import type { ById, RecipeOf } from "../costModel";
 import { unitCost } from "../costModel";
+import { SECTION_LABELS } from "../constants";
 import type { Item } from "../types";
 
 const fmt = (n: number | null): string =>
@@ -47,7 +48,7 @@ export default function ItemCard({
         рів. {item.craft_level ?? "—"} · {item.craft_time ?? "—"} · {item.craft_exp ?? "—"} XP · вихід ×{out}
         {item.type === "intermediate" && <span className="badge lvl">напівфабрикат</span>}
         {!complete && <span className="badge">рецепт неповний</span>}
-        {item.shop_section && <span className="badge lvl">{item.shop_section}</span>}
+        {item.shop_section && <span className="badge lvl">{SECTION_LABELS[item.shop_section] || item.shop_section}</span>}
       </div>
 
       {comps.length ? (

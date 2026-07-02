@@ -1,12 +1,12 @@
 id,name_uk,category,type,buy_price,craft_level,craft_time,craft_exp,output_qty,shop_section,sell_price,components_complete,notes
-antidote,Протиотрута,mixture,product,,3,00:50,3,3,ANTIDOTE,5.00,true,
-bandage,Бинт,bandage,product,,1,00:15,1,5,BANDAGES,0.50,true,
-sterile_bandage,Стерильний бинт,bandage,product,,1,00:20,1,5,BANDAGES,2.00,true,
-strengthening_mixture,Зміцнююча мікстура,mixture,product,,3,00:45,3,2,MIXTURE,7.50,true,
-healing_drink,Загоюючий напій,mixture,product,,3,00:45,3,2,MIXTURE,15.50,true,
-restoring_emulsion,Відновлююча емульсія,mixture,product,,3,00:45,3,2,MIXTURE,8.00,true,
-reparative_suspension,Репаративна суспензія,mixture,product,,3,00:45,3,2,MIXTURE,8.00,true,
-stabilizing_solution,Стабілізаційний розчин,mixture,product,,3,00:45,3,2,MIXTURE,8.00,true,"Shop page spells it ""Стабілізуючий розчин"""
+antidote,Протиотрута,mixture,product,,3,00:50,3,3,antidote,5.00,true,
+bandage,Бинт,bandage,product,,1,00:15,1,5,bandages,0.50,true,
+sterile_bandage,Стерильний бинт,bandage,product,,1,00:20,1,5,bandages,2.00,true,
+strengthening_mixture,Зміцнююча мікстура,mixture,product,,3,00:45,3,2,mixture,7.50,true,
+healing_drink,Загоюючий напій,mixture,product,,3,00:45,3,2,mixture,15.50,true,
+restoring_emulsion,Відновлююча емульсія,mixture,product,,3,00:45,3,2,mixture,8.00,true,
+reparative_suspension,Репаративна суспензія,mixture,product,,3,00:45,3,2,mixture,8.00,true,
+stabilizing_solution,Стабілізаційний розчин,mixture,product,,3,00:45,3,2,mixture,8.00,true,"Shop page spells it ""Стабілізуючий розчин"""
 tonic_herbs,Тонізуючий збір лікарських трав,herbs,intermediate,,1,00:20,1,1,,,true,
 healing_herbs,Цілющий збір лікарських трав,herbs,intermediate,,1,00:20,1,1,,,true,
 calming_herbs,Заспокійливий збір лікарських трав,herbs,intermediate,,1,00:20,1,1,,,true,

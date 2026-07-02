@@ -30,7 +30,6 @@ def run() -> None:
             if conn.execute(
                 text("SELECT id FROM _migrations WHERE id=:id"), {"id": fname}
             ).first():
-                print(f"[migrate] {fname}: already applied")
                 continue
             sql = open(os.path.join(MIGRATIONS_DIR, fname)).read()
             # Execute each statement separately (SQLite/SQLAlchemy run one at a

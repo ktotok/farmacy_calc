@@ -40,3 +40,24 @@ def test_migration_001_applies_on_pre_001_state(monkeypatch):
             text("SELECT id FROM _migrations")
         ).scalars().all()
         assert "001_shop_to_product.sql" in applied
+
+
+def test_migrate_is_silent_on_already_applied_migrations(monkeypatch, capsys):
+    """Second run must print nothing — only newly-applied migrations get output."""
+    engine = create_engine("sqlite:///:memory:")
+    SQLModel.metadata.create_all(engine)
+    with Session(engine) as s:
+        s.add(Item(id="laudanum", name_uk="Лауданум", type=ItemType.intermediate))
+        for legacy in ("analgesic_infusion", "bandage_belt", "spray_syringe"):
+            s.add(Item(id=legacy, name_uk=legacy, type=ItemType.raw))
+        s.commit()
+
+    monkeypatch.setattr(migrate_mod, "engine", engine)
+    monkeypatch.setattr(migrate_mod, "init_db", lambda: None)
+
+    migrate_mod.run()
+    capsys.readouterr()  # discard first-run output ("... applied")
+
+    migrate_mod.run()
+    out = capsys.readouterr().out
+    assert out == ""

@@ -13,6 +13,13 @@ interface Props {
 
 type Row = { component_id: string; quantity: number };
 
+// Exported for unit testing — components must be raw/intermediate, never product.
+export function availableComponents(items: Item[], item: Item, rows: Row[]): Item[] {
+  return items
+    .filter((i) => i.type !== "product" && i.id !== item.id && !rows.some((r) => r.component_id === i.id))
+    .sort((a, b) => a.name_uk.localeCompare(b.name_uk, "uk"));
+}
+
 export default function RecipeEditor({ item, items, recipeOf, onClose, onSaved }: Props) {
   const initial: Row[] = (recipeOf[item.id] || []).map((r) => ({
     component_id: r.component_id,
@@ -29,9 +36,7 @@ export default function RecipeEditor({ item, items, recipeOf, onClose, onSaved }
     return m;
   }, [items]);
 
-  const available = items
-    .filter((i) => i.id !== item.id && !rows.some((r) => r.component_id === i.id))
-    .sort((a, b) => a.name_uk.localeCompare(b.name_uk, "uk"));
+  const available = availableComponents(items, item, rows);
 
   function addRow() {
     if (!addId) return;

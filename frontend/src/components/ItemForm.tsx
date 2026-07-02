@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { api, ApiError, TYPES } from "../api";
-import { ITEM_TYPE_LABELS } from "../constants";
+import { ITEM_TYPE_LABELS, SECTION_LABELS, SECTION_ORDER } from "../constants";
 import type { Item, ItemType } from "../types";
 
 interface Props {
   item: Item | null; // null = create
+  hasRecipe: boolean; // item has ≥1 recipe component (false in create mode)
   onClose: () => void;
   onSaved: () => void;
   onDeleted: () => void;
@@ -45,7 +46,7 @@ const toForm = (it: Item | null): FormState => ({
 const numOrNull = (s: string) => (s.trim() === "" ? null : Number(s));
 const strOrNull = (s: string) => (s.trim() === "" ? null : s.trim());
 
-export default function ItemForm({ item, onClose, onSaved, onDeleted }: Props) {
+export default function ItemForm({ item, hasRecipe, onClose, onSaved, onDeleted }: Props) {
   const isEdit = item != null;
   const [f, setF] = useState<FormState>(toForm(item));
   const [error, setError] = useState("");
@@ -64,7 +65,7 @@ export default function ItemForm({ item, onClose, onSaved, onDeleted }: Props) {
       name_uk: f.name_uk.trim(),
       type: f.type,
       category: strOrNull(f.category),
-      shop_section: strOrNull(f.shop_section),
+      shop_section: f.type === "product" ? strOrNull(f.shop_section) : null,
       buy_price: numOrNull(f.buy_price),
       sell_price: numOrNull(f.sell_price),
       craft_level: numOrNull(f.craft_level),
@@ -125,7 +126,13 @@ export default function ItemForm({ item, onClose, onSaved, onDeleted }: Props) {
           </div>
           <div className="form-row">
             <label>Розділ крамниці</label>
-            <input className="field" value={f.shop_section} onChange={(e) => set("shop_section", e.target.value)} />
+            <select className="field" value={f.shop_section} disabled={f.type !== "product"}
+              onChange={(e) => set("shop_section", e.target.value)}>
+              <option value="">— не вказано —</option>
+              {SECTION_ORDER.filter((k) => k !== "__other").map((k) => (
+                <option key={k} value={k}>{SECTION_LABELS[k]}</option>
+              ))}
+            </select>
           </div>
           <div className="form-row">
             <label>Вихід (output_qty)</label>
@@ -153,7 +160,8 @@ export default function ItemForm({ item, onClose, onSaved, onDeleted }: Props) {
           </div>
           <div className="form-row">
             <label className="check" style={{ marginTop: 22 }}>
-              <input type="checkbox" checked={f.components_complete} onChange={(e) => set("components_complete", e.target.checked)} />
+              <input type="checkbox" checked={f.components_complete} disabled={!hasRecipe}
+                onChange={(e) => set("components_complete", e.target.checked)} />
               рецепт повний
             </label>
           </div>

@@ -30,6 +30,9 @@ def _enable_foreign_keys(dbapi_conn, _record):
 
 def init_db():
     """Create tables if they do not exist."""
+    # Log the resolved DB path so a misconfigured persistence location (ephemeral
+    # container FS vs mounted volume) is obvious in the boot logs.
+    print(f"[db] Using SQLite at {os.path.abspath(DB_PATH)}", flush=True)
     SQLModel.metadata.create_all(engine)
 
 

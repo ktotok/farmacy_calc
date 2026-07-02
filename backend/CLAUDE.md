@@ -10,7 +10,7 @@ FastAPI + SQLModel over SQLite. Root [CLAUDE.md](../CLAUDE.md) — architecture,
 backend/
   app/
     main.py            ← FastAPI app; lifespan calls init_db only; mounts frontend/dist in prod
-    db.py              ← SQLModel engine/session; SQLite at data/pharmacy.db; FK pragma
+    db.py              ← SQLModel engine/session; SQLite path from PHARMACY_DB (default data/pharmacy.db locally, /data/pharmacy.db in the image); logs resolved path on boot; FK pragma
     models.py          ← SQLModel tables: Item, RecipeComponent (+ CHECK/FK constraints)
     schemas.py         ← Pydantic request/response models (422 on bad input)
     cost.py            ← server-side cost model (parity reference for the TS port)

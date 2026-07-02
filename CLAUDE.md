@@ -83,17 +83,19 @@ No SQLite server needed — SQLite is embedded file inside container.
 docker build -t farmacy_calc .
 
 # Run it. PORT defaults to 8777 inside the container; map it to the host.
-# Mount a host dir at /data so the DB survives container restarts, and point
-# PHARMACY_DB at it (keeps the seed CSVs at /app/data intact for first boot).
+# Mount a host dir at /data so the DB survives container restarts. The image
+# already defaults PHARMACY_DB=/data/pharmacy.db (Dockerfile ENV), so only the
+# volume mount is required. Mount at /data, NOT /app/data — mounting over
+# /app/data would shadow the baked-in seed CSVs and break first-boot seeding.
 docker run --rm -p 8777:8777 \
-  -e PHARMACY_DB=/data/pharmacy.db \
   -v "$(pwd)/.docker-data:/data" \
   farmacy_calc
 ```
 
 Then open `http://127.0.0.1:8777` — frontend and `/api` served from same origin.
-On first boot DB seeds from bundled CSVs (`Seeded DB from CSV: …` in logs); after
-that all in-app edits persist in mounted volume, DB does **not** reseed.
+Boot logs show the resolved DB path (`[db] Using SQLite at /data/pharmacy.db`) and,
+on first boot, the seed (`Seed result: {'items': …}`). After that all in-app edits
+persist in the mounted volume and the DB does **not** reseed (`{'skipped': True}`).
 
 ## Deployment (Railway)
 
@@ -104,10 +106,13 @@ and built `frontend/dist` from one process bound to `$PORT`.
 - **Builder**: `railway.json` pins Dockerfile builder + a `/api/data`
   healthcheck. `.dockerignore` excludes `node_modules`, `Medicine/`, local DB.
 - **Persistence**: SQLite DB lives on mounted Railway **Volume** (mount path
-  `/data`), env var `PHARMACY_DB=/data/pharmacy.db`. Seeds once from CSVs on first
-  boot (`Seeded DB from CSV: …` in logs), then persists all in-app edits across
-  deploys. DB does **not** reseed once populated — to apply CSV data changes,
-  re-import via in-app CSV import.
+  `/data`). The DB path is baked into the image (`ENV PHARMACY_DB=/data/pharmacy.db`
+  in the Dockerfile), so Railway only needs the volume — no service variable
+  required (any dashboard `PHARMACY_DB` is redundant). Mount path **must** be `/data`,
+  never `/app/data` (that would shadow the baked-in seed CSVs). Seeds once from CSVs
+  on first boot (`Seed result: {'items': …}` in logs), then persists all in-app edits
+  across deploys; DB does **not** reseed once populated (`{'skipped': True}`) — to
+  apply CSV data changes, re-import via in-app CSV import.
 - **Updates**: `git push` to `main` → Railway auto-rebuilds + redeploys.
 - No app code Railway-specific: port comes from Dockerfile CMD (`--port ${PORT}`)
   and DB path from `PHARMACY_DB` (`backend/app/db.py`).

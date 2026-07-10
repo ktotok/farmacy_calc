@@ -6,8 +6,12 @@ Constraints added over the flat CSVs:
   - recipe_component.quantity >= 1 (CHECK)
   - recipe_component references real items (FK, ON DELETE CASCADE)
 Cycle prevention is enforced in the recipes router (SQLite can't express it).
+
+The Sale table is an append-only ledger of actual sales; it snapshots the price
+and cost at the moment of sale so reports stay stable when items change later.
 """
 import enum
+from datetime import datetime, timezone
 from typing import Optional
 
 from sqlalchemy import CheckConstraint, Column, Enum, ForeignKey, String
@@ -64,3 +68,33 @@ class RecipeComponent(SQLModel, table=True):
         )
     )
     quantity: int = 1
+
+
+class Sale(SQLModel, table=True):
+    """One recorded sale. Append-only ledger — never mutated after insert.
+
+    `unit_price` and `unit_cost` are snapshots captured at sale time, so editing
+    an item's price (or deleting the item) never rewrites past reports. The FK is
+    ON DELETE SET NULL (not CASCADE): deleting an item keeps its sales history,
+    and `item_name` preserves the display name.
+    """
+    __tablename__ = "sale"
+    __table_args__ = (
+        CheckConstraint("quantity >= 1", name="ck_sale_quantity"),
+        CheckConstraint("unit_price >= 0", name="ck_sale_unit_price"),
+        CheckConstraint("unit_cost IS NULL OR unit_cost >= 0", name="ck_sale_unit_cost"),
+    )
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    item_id: Optional[str] = Field(
+        default=None,
+        sa_column=Column(String, ForeignKey("item.id", ondelete="SET NULL"), nullable=True),
+    )
+    item_name: str                       # snapshot of Item.name_uk at sale time
+    quantity: int
+    unit_price: float                    # snapshot: charged per unit
+    unit_cost: Optional[float] = None    # snapshot: production cost; None = unknown ("—")
+    sold_at: str                         # ISO 8601; effective sale moment (may be backdated)
+    created_at: str = Field(
+        default_factory=lambda: datetime.now(timezone.utc).isoformat()
+    )                                    # audit: when the row was entered

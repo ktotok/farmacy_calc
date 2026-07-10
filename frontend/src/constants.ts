@@ -21,3 +21,10 @@ export const ITEM_TYPE_LABELS: Record<string, string> = {
   intermediate: "Напівфабрикат",
   product: "Виріб",
 };
+
+// Report periods for the Продажі tab.
+export const PERIOD_LABELS: Record<string, string> = {
+  day: "Сьогодні",
+  week: "Тиждень",
+  month: "Місяць",
+};

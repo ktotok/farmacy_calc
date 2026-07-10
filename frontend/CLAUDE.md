@@ -11,10 +11,12 @@ frontend/
   src/
     api.ts             ← typed fetch client (throws ApiError with Ukrainian detail)
     costModel.ts       ← unitCost() port (client-side, instant recompute)
-    constants.ts       ← SECTION_ORDER / SECTION_LABELS / ITEM_TYPE_LABELS
+    sales.ts           ← pure sales helpers (periodBounds / aggregateByItem)
+    constants.ts       ← SECTION_ORDER / SECTION_LABELS / ITEM_TYPE_LABELS / PERIOD_LABELS
     App.tsx            ← tabs, price edits, toast, modals, CSV import/export
-    components/        ← ItemCard, ItemForm, RecipeEditor
+    components/        ← ItemCard, ItemForm, RecipeEditor, SalesTab, SalesReport
     costModel.test.ts  ← parity guard vs __fixtures__/expected_costs.json
+    sales.test.ts      ← period bucketing + aggregation unit tests
 ```
 
 `costModel.ts` is live port of cost model — keep in lock-step with
@@ -25,7 +27,15 @@ frontend/
 - **Вироби** — `product` items, grouped by `shop_section`
 - **Проміжні** — `intermediate` items (crafted, used as ingredients elsewhere)
 - **Сировина** — `raw` items with editable buy-price inputs
-- **Зведення** — sortable profit summary across all crafted items
+- **Зведення** — day/week/month report of **sold products** (виторг / собівартість /
+  прибуток / маржа), aggregated by item (`components/SalesReport.tsx`). `sales.ts`
+  computes the period window in local time (week from Monday) → UTC `[start, end)`,
+  which the server filters (`GET /api/sales?start&end`); `aggregateByItem` groups
+  the returned rows.
+- **Продажі** — record a sale (item + qty + price + date) + a recent-sales list with
+  delete (`components/SalesTab.tsx`). Sales are an append-only ledger snapshotting
+  price + cost at sale time (`GET/POST/DELETE /api/sales`), so new/edited/deleted
+  items never rewrite past reports.
 
 Each card has ✎ (edit item) + "рецепт" (edit recipe) actions; top toolbar has
 "+ Новий виріб" + CSV import/export.

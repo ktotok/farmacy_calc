@@ -11,7 +11,7 @@ backend/
   app/
     main.py            ← FastAPI app; lifespan calls init_db only; mounts frontend/dist in prod
     db.py              ← SQLModel engine/session; SQLite path from PHARMACY_DB (default data/pharmacy.db locally, /data/pharmacy.db in the image); logs resolved path on boot; FK pragma
-    models.py          ← SQLModel tables: Item, RecipeComponent (+ CHECK/FK constraints)
+    models.py          ← SQLModel tables: Item, RecipeComponent, Sale (+ CHECK/FK constraints)
     schemas.py         ← Pydantic request/response models (422 on bad input)
     cost.py            ← server-side cost model (parity reference for the TS port)
     seed.py            ← CSV → SQLite seed (idempotent; skips if DB has rows)
@@ -22,6 +22,7 @@ backend/
       items.py         ← CRUD /api/items + PUT /api/items/prices/batch
       recipes.py       ← CRUD /api/recipes (orphan + cycle validation)
       io.py            ← /api/export/*.csv, /api/import/{items,recipes}
+      sales.py         ← GET/POST/DELETE /api/sales (ledger; GET ?start&end&limit filter)
   tests/               ← pytest (shape, validation, cost anchors, CSV round-trip)
 ```
 
@@ -32,6 +33,10 @@ backend/
 - `item.type` closed enum (`raw|intermediate|product`).
 - Prices + `output_qty` CHECK constraints (`>= 0`, `output_qty >= 1`).
 - `recipe_component` FK → `item.id` `ON DELETE CASCADE`.
+- `sale` FK → `item.id` `ON DELETE SET NULL` (deliberately not CASCADE — the sales
+  ledger outlives the items it references; `item_name` snapshot preserves display).
+  `unit_price`/`unit_cost` are snapshots captured at sale time via `cost.py`, so
+  editing a price or deleting an item never rewrites past sales reports.
 - Recipe edits rejected (422) on orphan component, self-reference, or cycle (`routers/recipes.py::_creates_cycle`).
 - Seed auto-creates any recipe component missing from `items.csv` as raw item with NULL `buy_price` — preserves FK integrity, cost unknown ("—").
 

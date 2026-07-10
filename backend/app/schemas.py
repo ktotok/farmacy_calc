@@ -85,3 +85,25 @@ class RecipeSet(BaseModel):
 class DataResponse(BaseModel):
     items: List[ItemRead]
     recipes: List[RecipeComponentRead]
+
+
+class SaleCreate(BaseModel):
+    """Record one sale. `unit_price` omitted ⇒ backend uses the item's current
+    sell_price; `sold_at` omitted ⇒ now."""
+    item_id: str
+    quantity: int = Field(ge=1)
+    unit_price: Optional[float] = Field(default=None, ge=0)
+    sold_at: Optional[str] = None
+
+
+class SaleRead(BaseModel):
+    id: int
+    item_id: Optional[str] = None
+    item_name: str
+    quantity: int
+    unit_price: float
+    unit_cost: Optional[float] = None
+    sold_at: str
+    created_at: str
+
+    model_config = ConfigDict(from_attributes=True)

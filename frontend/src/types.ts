@@ -26,3 +26,16 @@ export interface DataResponse {
   items: Item[];
   recipes: RecipeComponent[];
 }
+
+// One recorded sale. unit_price/unit_cost are snapshots from the moment of sale;
+// item_id is null if the item was later deleted (item_name preserves the name).
+export interface Sale {
+  id: number;
+  item_id: string | null;
+  item_name: string;
+  quantity: number;
+  unit_price: number;
+  unit_cost: number | null;
+  sold_at: string;
+  created_at: string;
+}

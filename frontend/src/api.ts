@@ -1,4 +1,4 @@
-import type { DataResponse, Item, ItemType, RecipeComponent } from "./types";
+import type { DataResponse, Item, ItemType, RecipeComponent, Sale } from "./types";
 
 /* Typed fetch client. All write endpoints throw ApiError (with the backend's
    Ukrainian `detail` message) on non-2xx so the UI can surface validation. */
@@ -57,6 +57,19 @@ export const api = {
     req<unknown>("/api/import/items", { method: "POST", headers: { "Content-Type": "text/plain" }, body: csv }),
   importRecipes: (csv: string) =>
     req<unknown>("/api/import/recipes", { method: "POST", headers: { "Content-Type": "text/plain" }, body: csv }),
+
+  getSales: (params?: { start?: string; end?: string; limit?: number }) => {
+    const qs = new URLSearchParams();
+    if (params?.start) qs.set("start", params.start);
+    if (params?.end) qs.set("end", params.end);
+    if (params?.limit != null) qs.set("limit", String(params.limit));
+    const q = qs.toString();
+    return req<Sale[]>(`/api/sales${q ? "?" + q : ""}`, { cache: "no-store" });
+  },
+  recordSale: (sale: { item_id: string; quantity: number; unit_price?: number | null; sold_at?: string }) =>
+    req<Sale>("/api/sales", json("POST", sale)),
+  deleteSale: (id: number) =>
+    req<void>(`/api/sales/${id}`, { method: "DELETE" }),
 };
 
 export const TYPES: ItemType[] = ["raw", "intermediate", "product"];

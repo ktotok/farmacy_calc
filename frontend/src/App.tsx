@@ -1,18 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { api, ApiError } from "./api";
-import { buildIndexes, unitCost } from "./costModel";
+import { buildIndexes } from "./costModel";
 import { SECTION_LABELS, SECTION_ORDER } from "./constants";
 import type { Item, RecipeComponent } from "./types";
 import ItemCard from "./components/ItemCard";
 import ItemForm from "./components/ItemForm";
 import RecipeEditor from "./components/RecipeEditor";
+import SalesTab from "./components/SalesTab";
+import SalesReport from "./components/SalesReport";
 
-type Tab = "products" | "intermediate" | "raw" | "summary";
-type SortKey = "name" | "cost" | "sell" | "profit" | "margin" | "batch";
-
-const fmt = (n: number | null): string =>
-  n == null || isNaN(n) ? "—" : "$" + n.toFixed(2);
-const clsOf = (v: number | null) => (v == null ? "" : v >= 0 ? "profit-pos" : "profit-neg");
+type Tab = "products" | "intermediate" | "raw" | "summary" | "sales";
 
 export default function App() {
   const [items, setItems] = useState<Item[]>([]);
@@ -24,7 +21,6 @@ export default function App() {
   const [hideIncomplete, setHideIncomplete] = useState(false);
   const [iSearch, setISearch] = useState("");
   const [rSearch, setRSearch] = useState("");
-  const [sort, setSort] = useState<{ key: SortKey; dir: number }>({ key: "margin", dir: -1 });
 
   const [flashId, setFlashId] = useState<string | null>(null);
   const [toast, setToast] = useState<{ msg: string; err: boolean } | null>(null);
@@ -33,7 +29,6 @@ export default function App() {
   const flashTimer = useRef<number>();
 
   const { byId, recipeOf } = useMemo(() => buildIndexes(items, recipes), [items, recipes]);
-  const cost = (id: string) => unitCost(id, byId, recipeOf);
 
   async function load() {
     try {
@@ -137,7 +132,7 @@ export default function App() {
       <nav className="tabs">
         {([
           ["products", "Вироби"], ["intermediate", "Проміжні"],
-          ["raw", "Сировина"], ["summary", "Зведення"],
+          ["raw", "Сировина"], ["summary", "Зведення"], ["sales", "Продажі"],
         ] as [Tab, string][]).map(([key, label]) => (
           <button key={key} className={"tab" + (tab === key ? " active" : "")} onClick={() => setTab(key)}>
             {label}
@@ -145,22 +140,25 @@ export default function App() {
         ))}
       </nav>
 
-      <div className="toolbar">
-        <button className="btn" onClick={() => setEditItem(null)}>+ Новий виріб</button>
-        <span className="spacer" />
-        <button className="btn ghost small" onClick={() => exportCsv("items")}>⭳ Експорт виробів</button>
-        <button className="btn ghost small" onClick={() => exportCsv("recipes")}>⭳ Експорт рецептів</button>
-        <label className="btn ghost small" style={{ cursor: "pointer" }}>
-          ⭱ Імпорт виробів
-          <input type="file" accept=".csv" hidden
-            onChange={(e) => { const f = e.target.files?.[0]; if (f) importCsv("items", f); e.target.value = ""; }} />
-        </label>
-        <label className="btn ghost small" style={{ cursor: "pointer" }}>
-          ⭱ Імпорт рецептів
-          <input type="file" accept=".csv" hidden
-            onChange={(e) => { const f = e.target.files?.[0]; if (f) importCsv("recipes", f); e.target.value = ""; }} />
-        </label>
-      </div>
+      {/* Item-management toolbar — only on the item tabs, not on Зведення / Продажі. */}
+      {(tab === "products" || tab === "intermediate" || tab === "raw") && (
+        <div className="toolbar">
+          <button className="btn" onClick={() => setEditItem(null)}>+ Новий виріб</button>
+          <span className="spacer" />
+          <button className="btn ghost small" onClick={() => exportCsv("items")}>⭳ Експорт виробів</button>
+          <button className="btn ghost small" onClick={() => exportCsv("recipes")}>⭳ Експорт рецептів</button>
+          <label className="btn ghost small" style={{ cursor: "pointer" }}>
+            ⭱ Імпорт виробів
+            <input type="file" accept=".csv" hidden
+              onChange={(e) => { const f = e.target.files?.[0]; if (f) importCsv("items", f); e.target.value = ""; }} />
+          </label>
+          <label className="btn ghost small" style={{ cursor: "pointer" }}>
+            ⭱ Імпорт рецептів
+            <input type="file" accept=".csv" hidden
+              onChange={(e) => { const f = e.target.files?.[0]; if (f) importCsv("recipes", f); e.target.value = ""; }} />
+          </label>
+        </div>
+      )}
 
       {tab === "products" && (
         <ProductsTab
@@ -221,7 +219,14 @@ export default function App() {
       )}
 
       {tab === "summary" && (
-        <SummaryTab items={items} cost={cost} sort={sort} setSort={setSort} />
+        <SalesReport onError={(m) => notify(m, true)} />
+      )}
+
+      {tab === "sales" && (
+        <SalesTab items={items}
+          onRecorded={() => notify("Збережено.")}
+          onDeleted={() => notify("Видалено.")}
+          onError={(m) => notify(m, true)} />
       )}
 
       <footer className="ledger-foot">
@@ -290,67 +295,6 @@ function ProductsTab(props: {
           </div>
         </details>
       ))}
-    </section>
-  );
-}
-
-/* ---- Summary tab (sortable) ---- */
-function SummaryTab(props: {
-  items: Item[]; cost: (id: string) => number | null;
-  sort: { key: SortKey; dir: number }; setSort: (s: { key: SortKey; dir: number }) => void;
-}) {
-  const { items, cost, sort, setSort } = props;
-  const rows = items
-    .filter((p) => (p.type === "product" || p.type === "intermediate") && p.components_complete)
-    .map((p) => {
-      const out = p.output_qty || 1;
-      const c = cost(p.id);
-      const sell = p.sell_price;
-      const profit = c != null && sell != null ? sell - c : null;
-      const margin = profit != null && sell ? (profit / sell) * 100 : null;
-      return { name: p.name_uk, cost: c, sell, profit, margin, batch: profit != null ? profit * out : null };
-    });
-
-  rows.sort((a, b) => {
-    if (sort.key === "name") return a.name.localeCompare(b.name, "uk") * sort.dir;
-    const av = a[sort.key] ?? -Infinity, bv = b[sort.key] ?? -Infinity;
-    return ((av as number) - (bv as number)) * sort.dir;
-  });
-
-  const th = (key: SortKey, label: string, num = true) => (
-    <th className={num ? "num" : ""} data-sort={key}
-      onClick={() => setSort({ key, dir: sort.key === key ? -sort.dir : (key === "name" ? 1 : -1) })}>
-      {label}
-    </th>
-  );
-
-  return (
-    <section className="tab-panel">
-      <p className="hint">Собівартість, ціна продажу та маржа по всіх виробах. Натисніть заголовок для сортування.</p>
-      <table className="ledger-table sortable">
-        <thead>
-          <tr>
-            {th("name", "Виріб", false)}
-            {th("cost", "Собівартість/од.")}
-            {th("sell", "Продаж/од.")}
-            {th("profit", "Прибуток/од.")}
-            {th("margin", "Маржа %")}
-            {th("batch", "Прибуток/партія")}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r.name}>
-              <td>{r.name}</td>
-              <td className="num">{fmt(r.cost)}</td>
-              <td className="num">{fmt(r.sell)}</td>
-              <td className={"num " + clsOf(r.profit)}>{fmt(r.profit)}</td>
-              <td className={"num " + clsOf(r.margin)}>{r.margin != null ? r.margin.toFixed(1) + "%" : "—"}</td>
-              <td className={"num " + clsOf(r.batch)}>{fmt(r.batch)}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
     </section>
   );
 }

@@ -235,6 +235,26 @@ tr.flash td{animation:flashrow 1.7s ease}
 .component-picker-list li.hint{cursor:default;color:var(--ink-soft);font-style:italic}
 .component-picker-list li.hint:hover{background:none}
 
+/* ---------- sales tab ---------- */
+.sale-recorder{
+  margin-bottom:22px;padding:14px 16px;border:1px solid var(--line);border-radius:5px;
+  background:rgba(255,250,235,.35);
+}
+.sale-fields{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap;margin-top:14px}
+.sale-fields .form-row{gap:4px}
+.sale-fields .field{width:auto}
+.sale-fields .sale-qty{width:80px;text-align:right;font-variant-numeric:tabular-nums}
+.sale-fields .sale-price{width:100px;text-align:right;font-variant-numeric:tabular-nums}
+.sale-selected{font-weight:bold;color:var(--ink);padding:7px 0}
+.component-picker-list li.selected{background:rgba(168,132,44,.28);color:var(--ink)}
+.period-toggle{display:flex;gap:6px;margin:4px 0 16px}
+.sale-total td{font-weight:bold;border-top:2px solid var(--line);background:rgba(140,100,40,.1)}
+.recent-sales{margin-top:28px}
+.subhead{
+  font-family:"PT Serif",serif;font-variant:small-caps;font-size:20px;letter-spacing:.5px;
+  color:var(--ink);margin:0 0 10px;border-bottom:2px double var(--line);padding-bottom:6px;
+}
+
 /* ---------- toast ---------- */
 .toast{
   position:fixed;bottom:22px;left:50%;transform:translateX(-50%);

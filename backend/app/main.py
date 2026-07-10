@@ -13,7 +13,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
 from .db import init_db
-from .routers import data, io, items, recipes
+from .routers import data, io, items, recipes, sales
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DIST = os.path.join(ROOT, "frontend", "dist")
@@ -39,6 +39,7 @@ app.include_router(data.router)
 app.include_router(items.router)
 app.include_router(recipes.router)
 app.include_router(io.router)
+app.include_router(sales.router)
 
 
 # Serve the built frontend in production (mounted last so /api wins).

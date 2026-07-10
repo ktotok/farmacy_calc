@@ -90,3 +90,80 @@ def test_csv_roundtrip_no_drift(client):
     assert key(before["items"], "id") == key(after["items"], "id")
     assert key(before["recipes"], "product_id") == key(
         after["recipes"], "product_id")
+
+
+# ---- sales ledger ----
+
+def test_record_sale_snapshots_cost(client):
+    # tonic_herbs has a known unit_cost of 0.9 (see test_cost_model_anchors)
+    r = client.post("/api/sales", json={"item_id": "tonic_herbs", "quantity": 5, "unit_price": 2.0})
+    assert r.status_code == 201
+    sale = r.json()
+    assert abs(sale["unit_cost"] - 0.9) < 1e-9
+    assert sale["unit_price"] == 2.0 and sale["quantity"] == 5
+    assert sale["item_name"]  # snapshotted Ukrainian name
+    # revenue is derived: qty * unit_price
+    assert sale["unit_price"] * sale["quantity"] == 10.0
+    # shows up in the ledger
+    assert any(s["id"] == sale["id"] for s in client.get("/api/sales").json())
+
+
+def test_record_sale_defaults_to_item_sell_price(client):
+    # antidote sells for 5.0 in the seed; omitting unit_price uses that
+    r = client.post("/api/sales", json={"item_id": "antidote", "quantity": 2})
+    assert r.status_code == 201
+    assert r.json()["unit_price"] == 5.0
+
+
+def test_sale_immutable_after_price_change_and_survives_deletion(client):
+    client.post("/api/items", json={
+        "id": "test_sale_item", "name_uk": "Тестовий продаж", "type": "product",
+        "output_qty": 1, "sell_price": 3.0,
+    })
+    sale = client.post("/api/sales", json={"item_id": "test_sale_item", "quantity": 4}).json()
+    assert sale["unit_price"] == 3.0
+    # editing the item's price must NOT rewrite the recorded sale
+    client.put("/api/items/test_sale_item", json={"sell_price": 9.0})
+    got = next(s for s in client.get("/api/sales").json() if s["id"] == sale["id"])
+    assert got["unit_price"] == 3.0
+    # deleting the item keeps the sale row (item_id nulled, name preserved)
+    assert client.delete("/api/items/test_sale_item").status_code == 204
+    got = next(s for s in client.get("/api/sales").json() if s["id"] == sale["id"])
+    assert got["item_id"] is None
+    assert got["item_name"] == "Тестовий продаж"
+
+
+def test_sale_validation_and_delete(client):
+    assert client.post("/api/sales", json={"item_id": "antidote", "quantity": 0}).status_code == 422
+    assert client.post("/api/sales", json={"item_id": "nope", "quantity": 1}).status_code == 404
+    sale = client.post("/api/sales", json={"item_id": "antidote", "quantity": 1}).json()
+    assert client.delete(f"/api/sales/{sale['id']}").status_code == 204
+    assert all(s["id"] != sale["id"] for s in client.get("/api/sales").json())
+
+
+def test_sold_at_normalized_to_canonical_utc(client):
+    # a '+02:00' local time is stored as the equivalent UTC millis with 'Z'
+    r = client.post("/api/sales", json={
+        "item_id": "antidote", "quantity": 1, "sold_at": "2026-03-15T14:30:00+02:00",
+    })
+    assert r.json()["sold_at"] == "2026-03-15T12:30:00.000Z"
+
+
+def test_sales_date_window_and_limit(client):
+    client.post("/api/items", json={
+        "id": "filt_item", "name_uk": "Фільтр", "type": "product", "output_qty": 1, "sell_price": 1.0,
+    })
+    jan = client.post("/api/sales", json={
+        "item_id": "filt_item", "quantity": 1, "sold_at": "2026-01-15T12:00:00.000Z"}).json()
+    jun = client.post("/api/sales", json={
+        "item_id": "filt_item", "quantity": 1, "sold_at": "2026-06-15T12:00:00.000Z"}).json()
+    # [start, end) window covering only June
+    got = client.get("/api/sales", params={
+        "start": "2026-06-01T00:00:00.000Z", "end": "2026-07-01T00:00:00.000Z"}).json()
+    ids = {s["id"] for s in got}
+    assert jun["id"] in ids and jan["id"] not in ids
+    # limit returns at most N (newest first)
+    one = client.get("/api/sales", params={"limit": 1}).json()
+    assert len(one) == 1
+    # unparseable bound -> 422
+    assert client.get("/api/sales", params={"start": "not-a-date"}).status_code == 422
